@@ -22,3 +22,5 @@ class Keywords():
                 print(colored(f'  {func}', attrs=['bold']))
                 del self.variables[func]
             print(self.information)
+            return False
+        return True
