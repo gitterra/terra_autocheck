@@ -12,9 +12,9 @@ class Keywords():
         self.error = colored('Ошибка. Вы создали одну или несколько переменных с именем встроенной функции:', color='red', attrs=['bold'])
         self.information = '\nИсправьте имена переменных и повторите попытку' \
                             +'\n\x1B[3mПочему нельзя использовать имена встроенных функций в качестве переменных:\x1B[3m \n' \
-                            + colored('https://colab.research.google.com/drive/16B6zPNQ1rt-RI-F_aKxxz3v87GM9x8E-?usp=sharing', color='blue')                             
+                            + colored('https://colab.research.google.com/drive/1kUQVE_vTJZEiNJ5yt0Zgg0MRVYslY4b4?usp=sharing', color='blue')                             
 
-    def check(self):
+    def check(self) -> bool:
         intersection_func = self.builtInFunctions & set(self.variables)
         if len(intersection_func) > 0:
             print(self.error)          
