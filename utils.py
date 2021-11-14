@@ -1,4 +1,5 @@
 from IPython.core.display import HTML
+from IPython import display
 class Keywords():
     def __init__(self, vars_):
         self.builtInFunctions = set(['abs',       'aiter',    'all',          'any',         'anext',      'ascii',   'bin',        'bool',       'breakpoint', 'bytearray',
@@ -22,6 +23,6 @@ class Keywords():
             for func in intersection_func:
                 list_func += f'<b>&nbsp;&nbsp;&nbsp;&nbsp;{func}</b><br>'
                 del self.variables[func]
-            HTML(self.error + list_func + self.information)
+            display.display(HTML(self.error + list_func + self.information))
             return False
         return True
