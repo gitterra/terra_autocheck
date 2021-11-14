@@ -12,7 +12,6 @@ class Keywords():
         self.variables = vars_
         self.error = '<p><b><font color="#880000">Ошибка. Вы создали одну или несколько переменных с именем встроенной функции:</font></b></p>'
         self.information = '<p>Исправьте имена переменных и повторите попытку <br> <i>\
-                            Почему нельзя использовать имена встроенных функций в качестве переменных:</i>\
                             </p><a href="https://colab.research.google.com/drive/1kUQVE_vTJZEiNJ5yt0Zgg0MRVYslY4b4?usp=sharing"\
                             target="_blank">База знаний | Почему нельзя использовать имена встроенных функций в качестве переменных | УИИ</a>'
 
