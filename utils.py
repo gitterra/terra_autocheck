@@ -10,9 +10,10 @@ class Keywords():
                                      'slice',     'sorted',   'staticmethod', 'str',         'sum',        'super',   'tuple',      'type',       'vars',       'zip'])
         self.variables = vars_
         self.error = colored('Ошибка. Вы создали одну или несколько переменных с именем встроенной функции:', color='red', attrs=['bold'])
-        self.information = '\nИсправьте имена переменных и повторите попытку' \
-                            +'\n\x1B[3mПочему нельзя использовать имена встроенных функций в качестве переменных:\x1B[3m \n' \
-                            + colored('https://colab.research.google.com/drive/1kUQVE_vTJZEiNJ5yt0Zgg0MRVYslY4b4?usp=sharing', color='blue')                             
+        self.information = '<p>Исправьте имена переменных и повторите попытку <br> <i>\
+                            Почему нельзя использовать имена встроенных функций в качестве переменных:</i>\
+                            </p><a href="https://colab.research.google.com/drive/1kUQVE_vTJZEiNJ5yt0Zgg0MRVYslY4b4?usp=sharing"\
+                            target="_blank">База знаний | Почему нельзя использовать имена встроенных функций в качестве переменных | УИИ</a>'
 
     def check(self) -> bool:
         intersection_func = self.builtInFunctions & set(self.variables)
