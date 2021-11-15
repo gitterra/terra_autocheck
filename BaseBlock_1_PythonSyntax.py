@@ -364,7 +364,7 @@ def test__import_module(In,tag):
         del sys.modules[f'student__{tag}']
     with test__Capturing() as student__output:
         module = importlib.import_module(f'student__{tag}')
-        !python3 {student_path__curr}
+        os.system(student_path__curr)
     
     text  = inspect.getsource(module)
 
