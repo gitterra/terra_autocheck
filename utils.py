@@ -2,6 +2,7 @@ from IPython.core.display import HTML
 from IPython import display
 from .settings import *
 import requests, os
+from termcolor import colored
 
 # Функция вывода сообщения об ошибке
 def error_programm(text: str):
