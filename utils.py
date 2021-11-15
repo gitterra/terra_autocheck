@@ -35,10 +35,11 @@ class Keywords():
         return True
         
 class User():
-    def __init__(self, hw_id):
+    def __init__(self, hw_id, cnt):
         self.login = ''
         self.id = -1
         self.HW_ID = hw_id
+        self.content = cnt
         pass
         
     def autorization(self):

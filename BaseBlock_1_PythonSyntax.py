@@ -822,3 +822,10 @@ def test__output_comp_5(student_dict, test__dict, input_replacment, In):
     else:
         print(f'Проверок пройдено {res} из 9.')
         return False
+        
+def Start(user_):
+    global user
+    user = user_
+    test__fullTest(user.content)
+    
+    

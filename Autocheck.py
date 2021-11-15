@@ -6,12 +6,12 @@ autorize = False
 def autorization(self):
     global user, autorize
     autorize = user.autorization()
-    Start(user.HW_ID)
+    Start(user.HW_ID, user.content)
         
-def Start(HW_ID): 
+def Start(homework_id, content): 
     global user
     if not autorize:
-        user = utils.User(HW_ID)    
+        user = utils.User(homework_id, content)    
         display.display(login_text)
         display.display(button_start)
         button_start.disabled = False
@@ -19,5 +19,5 @@ def Start(HW_ID):
     else:
         if user.HW_ID in [1738]:
             Ultra_Light.Start(user)
-        elif HW_ID == 1739:
+        elif user.HW_ID == 1739:
             BaseBlock_1_PythonSyntax.Start(user)
