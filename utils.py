@@ -3,6 +3,10 @@ from IPython import display
 from .settings import *
 import requests, os
 
+# Функция вывода сообщения об ошибке
+def error_programm(text: str):
+    print(colored(text, color='red', attrs=['bold']))
+    
 class Keywords():
     def __init__(self, vars_):
         self.builtInFunctions = set(['abs',       'aiter',    'all',          'any',         'anext',      'ascii',   'bin',        'bool',       'breakpoint', 'bytearray',

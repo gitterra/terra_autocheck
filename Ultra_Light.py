@@ -7,10 +7,6 @@ from termcolor import colored
 import numpy as np
 import functools
 
-# Функция вывода сообщения об ошибке
-def error_programm(text: str):
-    print(colored(text, color='red', attrs=['bold']))
-  
 # Функция проверки ответов пользователя
 def check_homework(self):    
     # Список параметров, отправляемых на сервер
@@ -34,7 +30,7 @@ def check_homework(self):
     if data.status_code!=200 and data.status_code!=500:
         # Если сервер не обработал запрос
         display.clear_output(wait=True)
-        error_programm(f'Ошибка обработки запроса (status_code={data.status_code})')
+        utils.error_programm(f'Ошибка обработки запроса (status_code={data.status_code})')
         return
     else:
         # Получение результатов проверки
