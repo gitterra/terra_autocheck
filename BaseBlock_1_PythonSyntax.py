@@ -827,7 +827,7 @@ def test__output_comp_5(student_dict, test__dict, input_replacment, In):
 
 def send_homework():
     global user
-    display.clear_output(wait=True)# Список параметров, отправляемых на сервер    
+    display.clear_output(wait=True)  
     param = {'hwid': user.HW_ID,
              'questions': json.dumps([78] * 10),
              'answers':'',
