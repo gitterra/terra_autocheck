@@ -39,7 +39,7 @@ class User():
         self.login = ''
         self.id = -1
         self.HW_ID = hw_id
-        self.content = cnt
+        self.content = cnt        
         pass
         
     def autorization(self):

@@ -3,8 +3,9 @@ from random import randint
 from uuid import uuid4 as uuid
 from subprocess import run, STDOUT, PIPE, Popen
 import numpy as np
-import re
+import re, json, requests
 import importlib
+from .settings import *
 from io import StringIO 
 import sys
 import types
@@ -823,11 +824,30 @@ def test__output_comp_5(student_dict, test__dict, input_replacment, In):
     else:
         print(f'Проверок пройдено {res} из 9.')
         return False
-        
+
+def send_homework():
+    global user
+    display.clear_output(wait=True)# Список параметров, отправляемых на сервер    
+    param = {'hwid': user.HW_ID,
+             'questions': json.dumps([78] * 10),
+             'answers':'',
+             'status': 1,
+             'user_id': user.id
+            }
+    
+    # Добавление ответов пользователя в параметры
+    param['answers'] = json.dumps([0]*10)
+    
+    # Проверка ответов пользователя на сервере
+    data = requests.get(os.path.join(SERVER, PAGE_CHECK), 
+                        params=param)
+    print(data.json()['result'])  
+    
 def Start(user_):
     display.clear_output(wait=True)
     global user
     user = user_
-    test__fullTest(user.content)
-    
+    res = test__fullTest(user.content)    
+    if res:
+        send_homework()    
     
