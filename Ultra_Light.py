@@ -123,19 +123,8 @@ def show_question(self):
     button_check.layout.display = 'block' # Отображение кнопки «Проверить»
     button_check.on_click(check_homework) # Добавление обработчика для кнопки
     
-def autorization(self):
-    global user
-    res = user.autorization()
-    if (res):
-        show_question(None)
-    else:
-        Start(user.HW_ID)
-    
 # Функция запуска тестирования
-def Start(hwid):
+def Start(hwid, user_):
     global user
-    user = utils.User(hwid)    
-    display.display(login_text)
-    display.display(button_start)
-    button_start.disabled = False
-    button_start.on_click(autorization)
+    user = _user
+    
