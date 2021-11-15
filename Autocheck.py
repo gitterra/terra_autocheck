@@ -3,6 +3,7 @@ from IPython import display
 from .settings import *
 
 autorize = False
+
 def autorization(self):
     global user, autorize
     autorize = user.autorization()
@@ -21,3 +22,4 @@ def Start(homework_id, content):
             Ultra_Light.Start(user)
         elif user.HW_ID == 1739:
             BaseBlock_1_PythonSyntax.Start(user)
+        autorize = False
