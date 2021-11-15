@@ -8,13 +8,14 @@ import numpy as np
 import functools
 
 # Функция проверки ответов пользователя
-def check_homework(self):    
+def check_homework(self):  
+    global user
     # Список параметров, отправляемых на сервер
-    param = {'hwid': HW_ID,
+    param = {'hwid': user.HW_ID,
              'questions': json.dumps(questions_id),
              'answers':'',
              'status': 0,
-             'user_id': user_info['id']
+             'user_id': user.id
             }
     # Получение ответов пользователя
     user_answers = [answer_buttons[i].options.index(answer_buttons[i].value) 
@@ -67,11 +68,11 @@ def check_homework(self):
 
 def send_homework(self):
     display.clear_output(wait=True)# Список параметров, отправляемых на сервер    
-    param = {'hwid': HW_ID,
+    param = {'hwid': user.HW_ID,
              'questions': json.dumps(questions_id),
              'answers':'',
              'status': 1,
-             'user_id': user_info['id']
+             'user_id': user.id
             }
     # Получение ответов пользователя
     user_answers = [answer_buttons[i].options.index(answer_buttons[i].value) 
@@ -87,7 +88,7 @@ def send_homework(self):
     
 # Функция визуализации вопросов
 def show_question(self):
-    param = {'hwid': HW_ID} # Параметры запроса (id домашки)
+    param = {'hwid': user.HW_ID} # Параметры запроса (id домашки)
     # Отправка запроса на сервер (получение списка из случайных 10 вопросов)
     questions = requests.get(
         os.path.join(SERVER, PAGE_QUESTION),
