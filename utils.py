@@ -1,7 +1,7 @@
 from IPython.core.display import HTML
 from IPython import display
 from .settings import *
-import requests
+import requests, os
 
 class Keywords():
     def __init__(self, vars_):
