@@ -8,7 +8,7 @@ def autorization(self):
         Start(user.HW_ID)
         
 def Start(HW_id):    
-    user = utils.User(hwid)    
+    user = utils.User(HW_id)    
     display.display(login_text)
     display.display(button_start)
     button_start.disabled = False
