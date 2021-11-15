@@ -1,5 +1,7 @@
 from IPython.core.display import HTML
 from IPython import display
+from .settings import *
+
 class Keywords():
     def __init__(self, vars_):
         self.builtInFunctions = set(['abs',       'aiter',    'all',          'any',         'anext',      'ascii',   'bin',        'bool',       'breakpoint', 'bytearray',
@@ -25,3 +27,36 @@ class Keywords():
             display.display(HTML(self.error + list_func + self.information))
             return False
         return True
+        
+class User():
+    def __init__(self, hw_id):
+        self.login = ''
+        self.id = -1
+        self.HW_ID = hw_id
+        pass
+        
+    def autorization(self):
+        # Деактивация кнопки
+        button_start.disabled = True
+        # Список параметров, отправляемых на сервер
+        param = {'login': login_text.value,
+                 'hw_id': self.HW_ID}
+        # Проверка ответов пользователя на сервере
+        data = requests.get(os.path.join(SERVER, PAGE_LOGIN), 
+                            params=param)  
+        if data.json()['result']==-1:
+            display.clear_output(wait=True)
+            error_programm(f'Указанный email: {login_text.value} не найден!')        
+            print('Проверьте правильность введенных данных и повторите попытку')
+            button_start.disabled = False
+            return False
+        elif data.json()['result']==-2:
+            display.clear_output(wait=True)
+            error_programm(f'В Вашей учебной программе нет данного домашнего задания!')
+            print('Обратитесь к куратору для решения данной проблемы')
+            button_start.disabled = False
+            return False
+        else:
+            self.login = login_text.value
+            self.id = data.json()['result']
+            return True 

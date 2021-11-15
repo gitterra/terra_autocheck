@@ -13,9 +13,6 @@ BUTTONS_TEXT = ['Проверить',
 
 answer_buttons = []                            # Список кнопок с ответами на вопросы
 questions_id = []                              # Список id вопросов
-# Информация о пользователе
-user_info = {'login':'login',
-             'id':-1}
 
 # Создание кнопки «Проверить»
 button_check = widgets.Button(

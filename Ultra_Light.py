@@ -1,5 +1,6 @@
 import requests, os, random, json
 from .settings import *
+from . import utils
 import ipywidgets as widgets
 from IPython import display
 from termcolor import colored
@@ -66,34 +67,7 @@ def check_homework(self):
     
     # Отображение кнопки «Зачесть ДЗ»
     button_send_homework.on_click(send_homework)
-    display.display(button_send_homework)
-    
-# Функция атворизации
-def autorization(self):
-    # Деактивация кнопки
-    button_start.disabled = True
-    # Список параметров, отправляемых на сервер
-    param = {'login': login_text.value,
-             'hw_id': HW_ID}
-    # Проверка ответов пользователя на сервере
-    data = requests.get(os.path.join(SERVER, PAGE_LOGIN), 
-                        params=param)  
-    if data.json()['result']==-1:
-        display.clear_output(wait=True)
-        error_programm(f'Указанный email: {login_text.value} не найден!')        
-        print('Проверьте правильность введенных данных и повторите попытку')
-        button_start.disabled = False
-        Start(HW_ID)
-    elif data.json()['result']==-2:
-        display.clear_output(wait=True)
-        error_programm(f'В Вашей учебной программе нет данного домашнего задания!')
-        print('Обратитесь к куратору для решения данной проблемы')
-        button_start.disabled = False
-        Start(HW_ID)
-    else:
-        user_info['login'] = login_text.value
-        user_info['id'] = data.json()['result']        
-        show_question(None)
+    display.display(button_send_homework)  
 
 def send_homework(self):
     display.clear_output(wait=True)# Список параметров, отправляемых на сервер    
@@ -152,10 +126,18 @@ def show_question(self):
     button_check.layout.display = 'block' # Отображение кнопки «Проверить»
     button_check.on_click(check_homework) # Добавление обработчика для кнопки
     
+def autorization(self):
+    global user
+    res = user.autorization()
+    if (res):
+        show_question(None)
+    else:
+        Start(user.HW_ID)
+    
 # Функция запуска тестирования
 def Start(hwid):
-    global HW_ID
-    HW_ID = hwid
+    global user
+    user = utils.User(hwid)    
     display.display(login_text)
     display.display(button_start)
     button_start.disabled = False
