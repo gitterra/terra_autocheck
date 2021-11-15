@@ -1,7 +1,7 @@
 from IPython.core.display import HTML
 from IPython import display
 class Keywords():
-    def __init__(self, vars_):
+    def __init__(self, vars_): 
         self.builtInFunctions = set(['abs',       'aiter',    'all',          'any',         'anext',      'ascii',   'bin',        'bool',       'breakpoint', 'bytearray',
                                      'bytes',     'callable', 'chr',          'classmethod', 'compile',    'complex', 'delattr',    'dict',       'dir',        'divmod',
                                      'enumerate', 'eval',     'exec',         'filter',      'float',      'format',  'frozenset',  'getattr',    'globals',    'hasattr',
