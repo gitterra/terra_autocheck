@@ -6,6 +6,7 @@ import numpy as np
 import re, json, requests
 import importlib
 from .settings import *
+from . import utils
 from io import StringIO 
 import sys
 import types
@@ -846,7 +847,9 @@ def Start(user_):
     display.clear_output(wait=True)
     global user
     user = user_
-    res = test__fullTest(user.content)    
-    if res:
-        send_homework()    
+    keywords = utils.Keywords(user.content)
+    if keywords.check():
+        res = test__fullTest(user.content['In'])    
+        if res:
+            send_homework()    
     
