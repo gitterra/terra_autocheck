@@ -156,7 +156,6 @@ def show_question(self):
 def Start(hwid):
     global HW_ID
     HW_ID = hwid
-    display.clear_output(wait=True)
     display.display(login_text)
     display.display(button_start)
     button_start.disabled = False
