@@ -401,8 +401,8 @@ def test__add_for_test(In,module_name, student_vars):
     while True:
         try:
             module = test__reload_module(test_path_curr, text, name)
-            with test__Capturing() as out:
-                !python3 {test_path_curr}
+            with test__Capturing() as out:            
+                os.system(test_path_curr)
                 return module, out
         except NameError as name_err:
             name_err = re.findall(r'\'\w+\'', str(name_err))[0].replace('\'','')
