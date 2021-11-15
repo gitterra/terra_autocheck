@@ -9,7 +9,8 @@ def autorization(self):
     if not autorize:
         Start(user.HW_ID)
         
-def Start(HW_id):    
+def Start(HW_id): 
+    global user
     user = utils.User(HW_id)    
     display.display(login_text)
     display.display(button_start)
