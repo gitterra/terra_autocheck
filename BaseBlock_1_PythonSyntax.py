@@ -835,7 +835,7 @@ def send_homework():
             }
     
     # Добавление ответов пользователя в параметры
-    param['answers'] = json.dumps([0]*10)
+    param['answers'] = json.dumps([1]*10)
     
     # Проверка ответов пользователя на сервере
     data = requests.get(os.path.join(SERVER, PAGE_CHECK), 
