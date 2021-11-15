@@ -10,7 +10,7 @@ def autorization(self):
     Start(user.HW_ID, user.content)
         
 def Start(homework_id, content): 
-    global user
+    global user, autorize
     if not autorize:
         user = utils.User(homework_id, content)    
         display.display(login_text)
