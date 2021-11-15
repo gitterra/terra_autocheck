@@ -1,5 +1,6 @@
 from . import Ultra_Light, BaseBlock_1_PythonSyntax, utils
 from IPython import display
+from .settings import *
 
 autorize = False
 def autorization(self):
