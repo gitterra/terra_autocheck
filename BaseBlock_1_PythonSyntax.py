@@ -11,6 +11,7 @@ import types
 import inspect
 from termcolor import colored
 from tqdm.notebook import tqdm
+from IPython import display
 
 def test__isStringContains(wholeString, word):
     new_list = ['=','(',')','{','}','+','.',',','>','<','\'','\"','?','\\','*','-','@','%','&','|','/',':','!','~','`','#']
@@ -824,6 +825,7 @@ def test__output_comp_5(student_dict, test__dict, input_replacment, In):
         return False
         
 def Start(user_):
+    display.clear_output(wait=True)
     global user
     user = user_
     test__fullTest(user.content)
