@@ -67,6 +67,7 @@ def check_homework(self):
     display.display(button_send_homework)  
 
 def send_homework(self):
+    global user
     display.clear_output(wait=True)# Список параметров, отправляемых на сервер    
     param = {'hwid': user.HW_ID,
              'questions': json.dumps(questions_id),
@@ -88,6 +89,7 @@ def send_homework(self):
     
 # Функция визуализации вопросов
 def show_question(self):
+    global user
     param = {'hwid': user.HW_ID} # Параметры запроса (id домашки)
     # Отправка запроса на сервер (получение списка из случайных 10 вопросов)
     questions = requests.get(
@@ -124,7 +126,8 @@ def show_question(self):
     button_check.on_click(check_homework) # Добавление обработчика для кнопки
     
 # Функция запуска тестирования
-def Start(hwid, user_):
+def Start(user_):
     global user
-    user = user_ 
+    user = user_
+    show_question(None)
     
