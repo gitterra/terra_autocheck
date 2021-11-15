@@ -126,5 +126,5 @@ def show_question(self):
 # Функция запуска тестирования
 def Start(hwid, user_):
     global user
-    user = user_
+    user = user_ 
     
