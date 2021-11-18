@@ -44,7 +44,7 @@ class User():
         
     def autorization(self):
         # Деактивация кнопки
-        button_start.disabled = True
+        #button_start.disabled = True
         # Список параметров, отправляемых на сервер
         param = {'login': 'nejronki.backup@gmail.com',
                             #login_text.value,
