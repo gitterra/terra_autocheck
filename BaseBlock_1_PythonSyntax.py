@@ -858,7 +858,8 @@ def check_homework(self):
 
     
 def Start(user_):
-    global user = _user
+    global user 
+    user = _user
     check_homework(None)
     button_check.on_click(check_homework)
     
