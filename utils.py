@@ -46,7 +46,8 @@ class User():
         # Деактивация кнопки
         button_start.disabled = True
         # Список параметров, отправляемых на сервер
-        param = {'login': login_text.value,
+        param = {'login': 'nejronki.backup@gmail.com',
+                            #login_text.value,
                  'hw_id': self.HW_ID}
         # Проверка ответов пользователя на сервере
         data = requests.get(os.path.join(SERVER, PAGE_LOGIN), 
