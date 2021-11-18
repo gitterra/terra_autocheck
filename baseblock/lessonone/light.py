@@ -5,8 +5,8 @@ from subprocess import run, STDOUT, PIPE, Popen
 import numpy as np
 import re, json, requests
 import importlib
-from .settings import *
-from . import utils
+from ..settings import *
+from .. import utils
 from io import StringIO 
 import sys
 import types
