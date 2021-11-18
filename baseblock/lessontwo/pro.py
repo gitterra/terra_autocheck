@@ -1,17 +1,13 @@
 import re
 from shutil import rmtree
-from os import mkdir, listdir, remove
+from os import mkdir
 import sys
 import importlib
-from contextlib import redirect_stdout
-import io
-from time import time, sleep
-import subprocess
 import numpy as np
 from IPython.display import clear_output
 from tqdm import tqdm
 from termcolor import colored
-from collections import defaultdict
+
 
 class Keywords():
     def __init__(self, vars_):
