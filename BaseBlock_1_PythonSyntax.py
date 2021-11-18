@@ -842,8 +842,8 @@ def send_homework():
     data = requests.get(os.path.join(SERVER, PAGE_CHECK), 
                         params=param)
     print(data.json()['result'])  
-    
-def Start(user_):
+
+def check_homework(self):
     display.clear_output(wait=True)
     global user
     user = user_
@@ -851,5 +851,16 @@ def Start(user_):
     if keywords.check():
         res = test__fullTest(user.content['In'])    
         if res:
-            send_homework()    
+            send_homework()
+            return    
+    display.display(button_check) # Вывод кнопки «Проверить»    
+    button_check.layout.display = 'block' # Отображение кнопки «Проверить»
+
+    
+def Start(user_):
+    global user = _user
+    check_homework(None)
+    button_check.on_click(check_homework)
+    
+        
     
