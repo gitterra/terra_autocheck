@@ -1,5 +1,5 @@
 from . import Ultra_Light, utils
-from .baseblock.lessonone import light
+from . import baseblock
 from IPython import display
 from .settings import *
 
@@ -15,7 +15,7 @@ def StartHomework(self):
     if user.HW_ID in [1738]:
         Ultra_Light.Start(user)
     elif user.HW_ID == 1739:
-        light.Start(user)
+        baseblock.lessonone.light.Start(user)
     
         
 def Start(homework_id, content):    
@@ -38,5 +38,5 @@ def Start(homework_id, content):
         if user.HW_ID in [1738]:
             Ultra_Light.Start(user)
         elif user.HW_ID == 1739:
-            light.Start(user)
+            baseblock.lessonone.light.Start(user)
         autorize = False
