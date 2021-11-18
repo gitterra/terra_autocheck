@@ -21,8 +21,8 @@ def Start(homework_id, content):
     global user, autorize
     # DEBUG
     user = utils.User(homework_id, content)
-    user.autorization()
     display.display(button_start)
+    user.autorization()    
     button_start.on_click(StartHomework)
     return
     
