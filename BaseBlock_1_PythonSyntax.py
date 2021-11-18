@@ -857,7 +857,7 @@ def check_homework(self):
     button_check.layout.display = 'block' # Отображение кнопки «Проверить»
 
     
-def Start(user_):
+def Start(_user):
     global user 
     user = _user
     check_homework(None)
