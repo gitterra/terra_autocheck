@@ -846,7 +846,6 @@ def send_homework():
 def check_homework(self):
     display.clear_output(wait=True)
     global user
-    user = user_
     keywords = utils.Keywords(user.content)
     if keywords.check():
         res = test__fullTest(user.content['In'])    
