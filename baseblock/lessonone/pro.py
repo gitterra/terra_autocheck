@@ -543,73 +543,99 @@ def test__item_task(tag):
     input_replacment = 'str(int(float(3.1415926535)))'
     requeriment_vars = {}
 
+    
     if tag == 1:
-        need = [[{'rainbow'}, 'print']]
+        need = [["Число простое", 'print(']]
+        args4test = '''
+def test___check_1(n):                                          
+    d = 0                                     
+    for i in range(2, n//2 + 1):              
+        if (n % i == 0):                     
+            d = i                            
 
-        args4test = ''' 
-def test__func_for_1(arg):
-    return ' '.join(arg) 
-     '''
-        requeriment_vars = {'rainbow':
-                            ['список',list]
-                            }
-
-
+    if d != 0:                                
+        return False # Составное
+    else:
+        return True # Простое'''
+    
+    
     if tag == 2:
-        need = [[{'purchases'}, 'print']]
-        requeriment_vars = {'purchases':
-                            ['список',list]
-                            }
-        
+        need = [[{'eratosphen'}]]
+        args4test = ''' 
+def test__prime_list(end_number):
+
+    def test__prime_number(number):
+        """
+        Функция проверки числа на простоту.
+        Вход: число
+        Выход: True - если число простое, False - если нет
+        """
+
+        for i in range(2, number//2 + 1):     # Для чисел от 2 до половины заданного:
+            if (number % i == 0):             # Если заданное число делится на i без остатка,
+                return False                  # то число не простое
+
+        return True
+    return [i for i in range(2, end_number + 1) if test__prime_number(i)]
+
+ '''
+        requeriment_vars = {
+            'eratosphen':['переменная', int]
+        }
 
     if tag == 3:
-
-        need = [['def','def del_from',{'del_from_tuple'}]]
-
-        args4test = ''' 
-def test__del_from_tuple(tpl, elem):         
-    if elem in tpl:            
-        elem_index = tpl.index(elem)
-        tpl = tpl[:elem_index] + tpl[elem_index + 1:]       
-    return tpl     
-     '''
-
-        requeriment_vars = {'del_from_tuple':
-                            ['функция',types.FunctionType]
-                            }
-
-    if tag == 4:   
-        need = [[{'phrase'}, 'print']]
-
-        args4test = ''' 
-def test__func_for_4(arg,letter):
-    test__sum = 0
-    for i in arg:
-        if i==letter:
-            return test__sum
-        else:
-            test__sum+=1 '''
-
-        requeriment_vars = {'phrase':
-                            ['строка',str]
-                            }
+        need = [[{'leap_year'}, 'def leap_year']]
+        args4test = '''
+def test__student_func(years):
+    if (years % 4 == 0 and years % 100 != 0) or (years % 400 == 0):
+        return 'Високосный'
+    else:
+        return 'Обычный'
+        '''
+        requeriment_vars = {
+            'leap_year':['функция', types.FunctionType]
+        }
     
-    if tag == 5:
-        need = [['def','def to_l',{'to_list'}]]
-
+    if tag == 4:
+        need = [['def', {'fibonacci'}, 'def fib']]
         args4test = ''' 
-def test__to_list(*args):
-    return list(args)
-     '''
-        requeriment_vars = {'to_list':
-                            ['функция',types.FunctionType]
-                            }
+def test__fibonacci(n):
+    a, b = 1, 1
+    new_list = []
+    for i in range(n):                                        
+        new_list.append(a)
+        a, b = b, a + b  
+    return new_list   '''
+        requeriment_vars = {
+            'fibonacci':['функция', types.FunctionType]
+        }
+
+    if tag == 5:
+        need = [['def',{'calculator'}, 'def calc']]
+        args4test = ''' 
+def test__calculator(a, b, c):
+    if b==0:
+        return 'Деление на 0'
+    if c == "+":
+        return a + b
+    elif c == "-":
+        return a - b
+    elif c == "*":
+        return a * b
+    elif c == "/":
+        return a / b
+    else:
+        return "Неизвестная операция!" '''
+        requeriment_vars = {
+            'calculator':['функция', types.FunctionType]
+        }
+
 
 
 
     return need, dont_need, args4test,requeriment_vars, input_replacment
-
 def test__output_comp_1(student_dict, test__dict, input_replacment, In):
+
     '''
         Функция получает все выходы и функции студента, если таковы есть.
     Выход его функции и эталонной будет сравниваться проверками. Если все выходы 
@@ -623,32 +649,57 @@ def test__output_comp_1(student_dict, test__dict, input_replacment, In):
             True/False - сдал или не сдад студент
     '''
     student_output = student_dict['output']
-    student_vars = student_dict['variables']
+    student_text = student_dict['text']
+    
+
     test__module = test__dict['module']
 
-    var_name = 'rainbow'
+    task__dict = 'простое'
+    limit = 100
 
-    curr_var = student_vars[var_name]
-    curr_res = test__module.test__func_for_1(curr_var)
-    curr_vars = test__find_by_type(student_vars, str)
-    if student_output:
-        for i in student_output:
-            if i.strip() == curr_res:
-                return True
-        print(f'Вывод сделан неверно.')
+    if 'str(int(float(3.1415926535)))' not in student_text:
+        print('\tВ вашей работе отсутсвует input функция.')
         return False
-        
-    elif curr_vars:
-        for key, value in curr_vars:
-            if value == curr_res and key!=var_name:
-                return True
-        print('Не было вывода текста')
-        return False
-            
+
+    start__task = 0
+    all_problems = []
+    for i in range(limit):
+        number = np.random.randint(10,100)
+        if i in range(10):
+            number = i
+        new_text = student_text.replace(input_replacment, f'\'{number}\'')
+
+        student_path_curr = os.path.join(student_path, 'student__1.py')
+
+        with open(student_path_curr, 'w') as f:
+            f.write(new_text)
+        with test__Capturing() as student_output:
+            execfile(student_path_curr)
+        if student_output:
+            if task__dict in student_output[0] and 'не' not in student_output[0].split(' '):
+                curr_result = True
+            else:
+                curr_result = False
+
+            if test__module.test___check_1(number)==curr_result:
+                start__task+=1
+            else:
+                all_problems.append(number)
+
+
+
+    all_problems = set(all_problems)
+    all_problems = [i for i in all_problems][:5]    
+    if start__task==limit:
+        return True
     else:
-        print('Не было вывода текста')
+        print(f'\tПроверок пройдено {start__task} из {limit}. Доработайте.\n\tВот первые {len(all_problems)} чисел, что не прошли проверку:',\
+*all_problems)
         return False
 def test__output_comp_2(student_dict, test__dict, input_replacment, In):
+
+
+
     '''
         Функция получает все выходы и функции студента, если таковы есть.
     Выход его функции и эталонной будет сравниваться проверками. Если все выходы 
@@ -660,28 +711,56 @@ def test__output_comp_2(student_dict, test__dict, input_replacment, In):
         
         Выход:
             True/False - сдал или не сдад студент
-        
-    ''' 
+    '''
     student_output = student_dict['output']
+    student_module = student_dict['module']
     student_vars = student_dict['variables']
+    student_text = student_dict['text']
+    
 
-    var_name = 'purchases'
-    result = sum(student_vars[var_name])
-    curr_vars = test__find_by_type(student_vars,(int, float))
-    if curr_vars:
-        for key, value in curr_vars.items():
-            if int(value)==result:
-                return True
-    if student_output:
-        for out in student_output:
-            all_ints = re.findall('[-]{0,1}\d+', out)
-            for curr_int in all_ints:
-                if result==int(curr_int):
-                    return True
+    test__module = test__dict['module']
 
-    print('Задание решено неверно. Верный ответ не был выведен.')
-    return False 
 
+    student_text = student_text.replace(input_replacment, '51')
+
+
+    student_path_curr = os.path.join(student_path, 'student__2.py')
+    with open(student_path_curr, 'w') as f:
+        f.write(student_text)
+    
+    if 'student__2' in sys.modules:
+        del sys.modules['student__2']
+    
+    with test__Capturing() as student_output:
+        student_module = importlib.import_module(f'student__2')
+
+    student_vars = {i: student_module.__dict__[i] for i in student_module.__dict__.keys() if not (i.startswith('__'))}
+
+    new_dict = test__find_by_type(student_vars, list)
+    new_list = []
+    new_lists = []
+    for i in student_output:
+        curr_list = re.findall(r'\[.+\]',i)
+        curr_number = re.findall(r'\d+',i)
+        if curr_number:
+            curr_number = eval(curr_number[0])
+        if curr_list:
+            curr_list = eval(curr_list[0])
+        if isinstance(curr_list, list):
+            new_lists.append(curr_list)
+        if isinstance(curr_number, int):
+            new_list.append(curr_number)
+    new_lists.append(new_list)
+    test__list = test__module.test__prime_list(50)
+    check__list  = np.array([curr_list == test__list for curr_list in new_lists]).any()
+
+    if check__list:
+        return True
+    else:
+        print(f'\tИспользуйте переменную \'eratosphen\' внутри ячейки вывода ответа. Так же \
+проверьте чтобы ответ соответствовал списку:\
+\n\t{test__list}.')
+        print('\tДоработайте 2-ую задачу.')
 def test__output_comp_3(student_dict, test__dict, input_replacment, In):
     '''
         Функция получает все выходы и функции студента, если таковы есть.
@@ -695,41 +774,43 @@ def test__output_comp_3(student_dict, test__dict, input_replacment, In):
         Выход:
             True/False - сдал или не сдад студент
     '''
+    student_output = student_dict['output']
     student_module = student_dict['module']
+    student_vars = student_dict['variables']
+    
+
     test__module = test__dict['module']
+    
+    func_name = 'leap_year'
 
-    func_name = 'del_from_tuple'
+    student_module, student_vars = test__update_module(In, student_module, func_name,312)
 
-    c = np.random.randint(4,10)
-    a = tuple(np.random.randint(0,9,c))
-    b = np.random.randint(0,9)
-    try: # На случай, если у студента аргумент кортёжа и аргумент нужного нам числа идут не (кортёж, число), а (число, кортёж)
-        student_module, student_vars = test__update_module(In,student_module,func_name,a,b)
-    except TypeError:
-        student_module, student_vars = test__update_module(In,student_module,func_name,b,a)
-
-    tups = 0
-    limit = 1000
-    for tu in range(limit):  # Наши проверки.
-        c = np.random.randint(4,10)
-        a = tuple(np.random.randint(0,9,c))
-        b = np.random.randint(0,9)
-        try: # На случай, если у студента аргумент кортёжа и аргумент нужного нам числа идут не (кортёж, число), а (число, кортёж)
-            if student_vars[func_name](a,b) == test__module.test__del_from_tuple(a,b):
-                tups+=1
-        except TypeError:
-            if student_vars[func_name](b,a) == test__module.test__del_from_tuple(a,b):
-                tups+=1
-    if tups==limit:
+    limit = 100
+    start = [0, 0]
+    for i in range(limit):
+        rand = np.random.randint(100,2000)
+        corr_answer = test__module.test__student_func(rand)
+        with test__Capturing() as student_output:
+            ret = student_vars[func_name](rand)
+        if ret:
+            if ret.lower() == corr_answer.lower():
+                start[0] +=1
+        if student_output:
+            if student_output[0].lower() == corr_answer.lower():
+                start[1] +=1
+        
+    print(f'\tПроверок пройдено {max(start)} из {limit}.', end=' ')
+    if max(start)==limit:
         return True
-    print(f'Пройдено {tups} проверок из {limit}. Доработайте.')
-    return False
+    else:
+        print('\tДоработайте  задание')
+        return False
+    
 def test__output_comp_4(student_dict, test__dict, input_replacment, In):
     '''
         Функция получает все выходы и функции студента, если таковы есть.
-    Выход его кода(print) будет анализироваться и будет проведён поиск числа,
-    что отвечает за корректный ответ. Число студента сравнивается с эталонным
-    и проводится проверка.
+    Выход его функции и эталонной будет сравниваться проверками. Если все выходы 
+    двух функций будут одинаковы, то все проверки он пройдёт. Если же нет, то задание не засчитается.
 
         Вход:
             output - Всё print выводы кода студента
@@ -738,27 +819,69 @@ def test__output_comp_4(student_dict, test__dict, input_replacment, In):
         Выход:
             True/False - сдал или не сдад студент
     '''
+
     student_output = student_dict['output']
+    student_module = student_dict['module']
     student_vars = student_dict['variables']
-    student_text = student_dict['text']
     
+
     test__module = test__dict['module']
 
-    var_name = 'phrase'
-    all_int_vars = test__find_by_type(student_vars, int)
-    new_text = student_text.replace(' ','')
-    for i in student_output:
-        if '47' in i:
-            all_int_vars.update({'student__num':47})
-    if not all_int_vars:
-        print('Не найдено корректного решения.')
-        return False
-    result = np.array([value == test__module.test__func_for_4(student_vars[var_name], 'е') for value in all_int_vars.values()]).any()  # Если хотя бы одно число совпадает с нашим - засчитываем.
-    if result:
+    func_name = 'fibonacci'
+
+    student_module, student_vars =  test__update_module(In, student_module,func_name, 4)
+
+
+    limit = 20
+    start = [0, 0]
+    all_errors_return = []
+    all_errors_output = []
+    for i in range(limit):
+        rand = i+5
+        corr_answer = test__module.test__fibonacci(rand)
+        with test__Capturing() as student_output:
+            ret = student_vars[func_name](rand)
+        if ret:
+            ret = list(student_vars[func_name](rand))
+            if ret == corr_answer:
+                start[0] +=1
+            else:
+                all_errors_return.append([[rand, corr_answer],[rand,ret]])
+        if student_output:
+            curr_text  =' '.join(student_output)
+            all_out = re.findall(r'[\[\(].+[\]\)]', curr_text)
+            if all_out:
+                all_out = list(eval(all_out[0]))
+                if list(eval(all_out)) == corr_answer:
+                    start[1] +=1
+                else:
+                    all_errors_output.append([[rand, corr_answer],[rand,all_out]])
+    
+    all_errors_return = all_errors_return[:5]
+    all_errors_output = all_errors_output[:5]    
+        
+    print(f'\tПроверок пройдено {max(start)} из {limit}.', end=' ')
+    if max(start)==limit:
         return True
-    else:
-        print('Пересчитайте кол-во знаков до буквы \'е\'. Доработайте.)')
+    elif max(start)>=0:
+        if all_errors_return:
+            our_list = all_errors_return
+        elif all_errors_output:
+            our_list = all_errors_output
+        else:
+            print('\tВаша функция должна возвращать значение - лист или генератор. Используйте return или yield соответсвенно.')
+            return False
+             
+        for curr in our_list:
+            print(f'\tДля числа {curr[1][0]} вывелась последовательность {curr[1][1]}\n\t\tКогда требовалось получить: {curr[0][1]}', end='\n\n')
         return False
+        
+
+
+    else:
+        print('\tДоработайте задание')
+        return False
+    
 def test__output_comp_5(student_dict, test__dict, input_replacment, In):
 
     '''
@@ -774,48 +897,83 @@ def test__output_comp_5(student_dict, test__dict, input_replacment, In):
             True/False - сдал или не сдад студент
     '''
     student_module = student_dict['module']
-    student_vars = student_dict['variables']
+    student_text = student_dict['text']
     
+
     test__module = test__dict['module']
 
+    def test__order(args, idx):
+        a_0,a_1,a_2 = args
+        new_list = [None, None, None]
+        new_list[idx] = a_2
+        help_list = [i for i in range(len(new_list)) if new_list[i]==None]
+        for idx, i in enumerate(help_list):
+            new_list[i] = locals()[f'a_{idx}']
+        return tuple(new_list)
 
-    tuple_0 = (1, 2, 3, ['asd','avv'])  # Проверки.
-    tuple_1 = ((1, 2, 3), ('12', 44))
-    tuple_2 = ('Молоко', 5, '2020 год')
-    tuple_3 = ([3, 4, 7], 8.3, True, 'Строка')
-    tuple_4 = ([3, 4, 7], 8.3, ('Молоко', 5, '2020 год'), 'Строка')
-    tuple_5 = ([3, 4, 7],['Молоко', 5, '2020 год'], True, 'Строка')
-    tuple_6 = (8.3, True, 'Строка')
-    tuple_7 = ([3, 4, 7], 8.3, True, 'Строка')
-    tuple_8 = ([3, 4, 7], True, 'Строка')
+    limit = 100
+    start = 0
+    operations = {0:'+',1:'-',2:'*',3:'/'}
+    func_text = inspect.getsource(student_module.calculator).replace(' ','')
+    find_all_vars = func_text.split('\n')[0]
+    find_all_vars = re.findall(r'\(.+\)',find_all_vars)[0]
+    find_all_vars = re.sub(r'[\(\)]', '',find_all_vars)
 
-    func_name = 'to_list'
-
+    number = 0
     try:
-        student_module, student_vars =  test__update_module(In, student_module,func_name,*locals()[f'tuple_{0}'])
-    except TypeError:
-        student_module, student_vars =  test__update_module(In, student_module,func_name,locals()[f'tuple_{0}'])
+        vars = find_all_vars.split(',')
+        a, b, c = vars
+    except ValueError:
+        print('\tВаша функция должна принимать 3 аргумента: 2 числа, и арифметическую операцию.')
+        return False
+    else:
+        for idx, i in enumerate(vars):
+            if f'{i}==':
+                number = idx
+    
+    func_name = 'calculator'
+
+    student_module, student_vars =  test__update_module(In, student_module,func_name, *test__order([1, 1,'+'],number))
+
+    vars_for_res_2 = test__order([1, 0,'/'],number)
+    try:
+        result_2 = student_vars[func_name](*vars_for_res_2)
+    except ZeroDivisionError:
+        print('\tПроверка на деление на 0 не прошла. Доработайте функцию, чтобы она возвращала текстовое предупреждение о том, что знаменателем на число ввели 0.')
+        return False
+
+    for i in range(limit):
+        var_1 = np.random.randint(500)
+        var_2 = np.random.randint(500)
+        oper = operations[np.random.randint(4)]
+
+        result_1 = test__module.test__calculator(var_1, var_2, oper)
+
+        vars_for_res_2 = test__order([var_1, var_2,oper],number)
+
+        result_2 = student_vars[func_name](*vars_for_res_2)
 
 
-    res = 0
-    for i in range(9):  # Если выход функции студента и выход эталонной функции одинаков - засчитываем.
-
-        try:
-            result =  student_vars[func_name](*locals()[f'tuple_{i}'])
-        except TypeError:
-            result =  student_vars[func_name](locals()[f'tuple_{i}'])
-
-        if result == test__module.test__to_list(*locals()[f'tuple_{i}']):
-            res+=1
+        if not isinstance(result_1,str) and not isinstance(result_2,str):
+            if result_1 == result_2:
+                start+=1
+            else:
+                print('\t',result_1,result_2, 'Не прошли проверку на результат' )    
+        elif isinstance(result_1,str) and isinstance(result_2,str):
+            start+=1
             
 
-    
-    if res==9:
+
+        
+
+        
+    print(f'Проверок пройдено {start} из {limit}.', end=' ')
+    if start==limit:
         return True
-    
     else:
-        print(f'Проверок пройдено {res} из 9.')
+        print('Доработайте задание')
         return False
+    
     
 
 def send_homework():
