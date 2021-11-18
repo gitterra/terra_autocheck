@@ -13,7 +13,7 @@ import types
 import inspect
 from termcolor import colored
 from tqdm.notebook import tqdm
-from IPython import display
+from IPython import display as dsp
 
 def test__isStringContains(wholeString, word):
     new_list = ['=','(',')','{','}','+','.',',','>','<','\'','\"','?','\\','*','-','@','%','&','|','/',':','!','~','`','#']
@@ -844,7 +844,7 @@ def send_homework():
     print(data.json()['result'])  
 
 def check_homework(self):
-    display.clear_output(wait=True)
+    dsp.clear_output(wait=True)
     global user
     keywords = utils.Keywords(user.content)
     if keywords.check():
@@ -852,7 +852,7 @@ def check_homework(self):
         if res:
             send_homework()
             return    
-    display.display(button_check) # Вывод кнопки «Проверить»    
+    dsp.display(button_check) # Вывод кнопки «Проверить»    
     button_check.layout.display = 'block' # Отображение кнопки «Проверить»
 
     
