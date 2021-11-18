@@ -38,14 +38,15 @@ def Start(usr):
     sys.path.append('/content/tmp')
     mkdir('/content/tmp')
     flag = False
-    t = save_cells(usr.content)
+    inp = usr.content['In']
+    t = save_cells(inp)
     res = [check_task1(t), check_task2(t), check_task3(t), check_task4(t), check_task5(t)]
     clear_output()
     for num, i in enumerate(res):
         print(f'Задание {num + 1}', 'выполнено' if i else 'сделано не правильно')
     print('ДЗ выполнено' if all(res) else 'Исправьте ошибки и попробуйте снова')
     rmtree('/content/tmp')
-    usr.content.clear()
+    inp.clear()
 
 
 def check_task1(text):

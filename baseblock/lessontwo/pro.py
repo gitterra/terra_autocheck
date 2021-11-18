@@ -68,6 +68,7 @@ def check_patt(pat, t):
 def Start(usr):
     sys.path.append('/content/tmp')
     mkdir('/content/tmp')
+    inp = usr.content['In']
     tasks = [{
         'alias': {r'rnd_array\s*=': 'my_array',
                   r'str_array\s*=': 'str_array'},
@@ -107,7 +108,7 @@ def Start(usr):
     }
     ]
     # flag = False
-    t = save_cells(usr.content)
+    t = save_cells(inp)
     res = [check_task(t, op) for op in tasks]  # , check_task2(t), check_task3(t), check_task4(t), check_task5(t)]
     clear_output()
     num = 0
@@ -121,7 +122,7 @@ def Start(usr):
     print('\n')
     print('ДЗ выполнено' if all(res) else 'Исправьте ошибки и попробуйте снова')
     rmtree('/content/tmp')
-    usr.content.clear()
+    inp.clear()
 
 
 def task1(tmp, text=None):
