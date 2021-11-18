@@ -3,13 +3,14 @@ from . import baseblock
 from IPython import display
 from .settings import *
 
-autorize = False
-
+#autorize = False
+'''
 def autorization(self):
     global user, autorize
     autorize = user.autorization()
     Start(user.HW_ID, user.content)
-    
+'''
+ 
 def StartHomework(self):
     global user
     if user.HW_ID in [1738]:
@@ -28,6 +29,7 @@ def Start(homework_id, content):
     button_start.on_click(StartHomework)
     return
     
+    '''
     if not autorize:
         user = utils.User(homework_id, content)    
         display.display(login_text)
@@ -40,3 +42,4 @@ def Start(homework_id, content):
         elif user.HW_ID == 1739:
             baseblock.lessonone.light.Start(user)
         autorize = False
+    '''
