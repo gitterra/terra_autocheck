@@ -1,7 +1,7 @@
 import re
 from shutil import rmtree
 import sys
-from os import mkdir, listdir, remove
+from os import mkdir
 import sys
 import importlib
 import numpy as np
