@@ -496,6 +496,34 @@ def test__reload_module(path, text, name):
     
     return module
 
+def test__fullTest(In):
+    all_test = {}
+    with tqdm(total=5) as pbar:
+        for i in range(1,6):
+            with test__Capturing() as out:
+                try:
+                    answer = test__task(In, i)
+                    if answer:
+                        pbar.update(1)
+                    if not answer:
+                        all_test[i] = out
+                except SyntaxError:
+                    all_test[i] = [colored('Ошибка синтаксиса Python','red')]
+                except IndentationError:
+                    all_test[i] = [colored('Ошибка отсупов в языке Python','red')]
+                except:
+                    all_test[i] = [colored(str(sys.exc_info()[1]),'red')]
+
+    if all_test:
+        for i in range(1,6):
+            if i in  all_test:
+                print(f'В {i} задании')
+                for curr_row in all_test[i]:
+                    print(f'\t{curr_row}')
+        return False
+    print('Вы справились с всеми задачами!')
+    return True
+
 def test__item_task(tag):
 
     '''
