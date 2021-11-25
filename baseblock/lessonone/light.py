@@ -12,6 +12,7 @@ import inspect
 from termcolor import colored
 from tqdm.notebook import tqdm
 import runpy
+from IPython import display as dsp
 
 def test__isStringContains(wholeString, word):
     new_list = ['=','(',')','{','}','+','.',',','>','<','\'','\"','?','\\','*','-','@','%','&','|','/',':','!','~','`','#']
@@ -838,21 +839,19 @@ def send_homework():
 def check_homework(self):
     dsp.clear_output(wait=True)
     global user
+    res = test__fullTest(user.content['In'])
+    if res:
+        print('Все задания выполнены верно. Работа принята (10 баллов)')
+    else:
+        print('Работа выполнена некорректно. Исправьте указанные ошибки и перезпустите проверку')
     keywords = utils.Keywords(user.content)
-    if keywords.check():
-        res = test__fullTest(user.content['In'])    
-        if res:
-            send_homework()
-            return    
-    dsp.display(button_check) # Вывод кнопки «Проверить»    
-    button_check.layout.display = 'block' # Отображение кнопки «Проверить»
+    keywords.check()
 
     
 def Start(_user):
     global user 
     user = _user
     check_homework(None)
-    button_check.on_click(check_homework)
     
         
     

@@ -18,8 +18,8 @@ class Keywords():
                                      'ord',       'pow',      'print',        'property',    'range',      'repr',    'reversed',   'round',      'set',        'setattr', 
                                      'slice',     'sorted',   'staticmethod', 'str',         'sum',        'super',   'tuple',      'type',       'vars',       'zip'])
         self.variables = vars_
-        self.error = '<p><b><font color="#880000">Ошибка. Вы создали одну или несколько переменных с именем встроенной функции:</font></b></p>'
-        self.information = '<p>Исправьте имена переменных и повторите попытку <br> <i>\
+        self.error = '<p><b><font color="#880000">Обратите внимание. Вы создали одну или несколько переменных с именем встроенной функции:</font></b></p>'
+        self.information = '<p>Старайтесь избегать подобных, чтобы избежать проблем в работе программ <br> <i>\
                             </p><a href="https://colab.research.google.com/drive/1kUQVE_vTJZEiNJ5yt0Zgg0MRVYslY4b4?usp=sharing"\
                             target="_blank">База знаний | Почему нельзя использовать имена встроенных функций в качестве переменных | УИИ</a>'
 
