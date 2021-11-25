@@ -17,7 +17,6 @@ from ... import utils
 def check_homework(self):
     dsp.clear_output(wait=True)
     global user
-
     '''
 
     Здесь код вызова функций автопроверки ДЗ
