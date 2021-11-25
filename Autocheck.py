@@ -6,7 +6,7 @@ from .settings import *
 #autorize = False
 '''
 def autorization(self):
-    global user,  autorize
+    global user, autorize
     autorize = user.autorization()
     Start(user.HW_ID, user.content)
 '''
