@@ -955,15 +955,19 @@ def test__output_comp_5(student_dict, test__dict,input_replacment, In):
                 res_2 = student_module.possible_path(curr_path)
 
 
-        new_2 = False
+        new_2 = None
         if student_output and not res_2:
             if 'False' in student_output[0]:
                 new_2 = False
             elif 'True' in student_output[0]:
                 new_2 = True
-            
-        if (res_1 == res_2 or res_1==new_2) and res_2!=None:
-            start+=1
+        if new_2!=None:          
+            if (res_1 == res_2 or res_1==new_2) and res_2!=None:
+                start+=1
+        else:
+            if res_1 == res_2 and res_2!=None:
+                start+=1
+
 
     print(f'\tТестов пройдено {start} из {limit}.', end=' ')
     if start==limit:
