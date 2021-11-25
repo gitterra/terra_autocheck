@@ -34,9 +34,10 @@ def Start(homework_id, content):
     # DEBUG
     user = utils.User(homework_id, content)
     user.autorization()
-    display.display(button_start)
-    button_start.disabled = False
-    button_start.on_click(StartHomework)
+    #display.display(button_start)
+    #button_start.disabled = False
+    #button_start.on_click(StartHomework)
+    StartHomework(None)
 
     return
     
