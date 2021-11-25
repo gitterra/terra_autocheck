@@ -10,9 +10,6 @@ from ... import utils
 
 
 
-#
-# ОБЯЗАТЕЛЬНЫЙ БЛОК
-#
 
 def check_homework(self):
     dsp.clear_output(wait=True)
