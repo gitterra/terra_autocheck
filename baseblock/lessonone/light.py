@@ -304,9 +304,9 @@ def test__find_reqs_args(In,text):
             for curr_frag_new in fragment_new.split('\n'):
                 if  curr_frag_new.startswith(f'{text}='):  # Смотрим, есть ли в ней создание переменной
                     result = f'\n{fragment}'  # Если есть - записываем в result код ячейки
-                elif curr_frag_new.startswith(f'def{text}('):  # Смотрим, есть ли в ячейке функция с таким именем
+                elif curr_frag_new.startswith(f'def{text}:'):  # Смотрим, есть ли в ячейке функция с таким именем
                     result = f'\n{fragment}'  # Если есть - записываем в result код ячейки
-                elif curr_frag_new.startswith(f'class{text}('):  # Смотрим, есть ли в ячейке класс с таким именем
+                elif curr_frag_new.startswith(f'class{text}:'):  # Смотрим, есть ли в ячейке класс с таким именем
                     result = f'\n{fragment}'  # Если есть - записываем в result код ячейки
                 else:
                     for new_row in fragment__rows:
