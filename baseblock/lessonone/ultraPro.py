@@ -613,11 +613,9 @@ def test__possible_path(*lst):
     to_digit = lambda x: int(x) if str(x).isdigit() else x
     # Условие перебора допустимых пар
     all_lists = [lst[::2], lst[1::2]]
-    print(all_lists)
 
     all_lists[0] = np.array(list(map(to_digit, all_lists[0])))
     all_lists[1] = np.array(list(map(to_digit, all_lists[1])))
-    print(all_lists)
     results = [0,0]
     for lis in all_lists:
         if lis.dtype == np.int64:
@@ -626,7 +624,7 @@ def test__possible_path(*lst):
             for i in lis:
                 if i.isdigit():
                     return False
-            results[0] = 1
+            results[1] = 1
     
     return sum(results)==2
      '''
