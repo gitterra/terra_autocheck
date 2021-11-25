@@ -4,11 +4,11 @@ from IPython import display as dsp
 from ... import utils
 
 '''
+дополнительно
 
 Здесь Ваши функции автопроверки
 
 '''
-
 #
 # ОБЯЗАТЕЛЬНЫЙ БЛОК
 #
