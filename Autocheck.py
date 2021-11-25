@@ -17,6 +17,10 @@ def StartHomework(self):
         Ultra_Light.Start(user)
     elif user.HW_ID == 1739:
         baseblock.lessonone.light.Start(user)
+    elif user.HW_ID == 1740:
+        baseblock.lessonone.pro.Start(user)
+    elif user.HW_ID == 1741:
+        baseblock.lessonone.ultraPro.Start(user)
     
         
 def Start(homework_id, content):    
