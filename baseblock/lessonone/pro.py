@@ -17,7 +17,7 @@ from IPython import display as dsp
 from ... import utils
 
 def test__isStringContains(wholeString, word):
-    new_list = ['=','(',')','{','}','+','.',',','>','<','\'','\"','?','\\','*','-','@','%','&','|','/',':','!','~','`','#']
+    new_list = ['=','(',')','{','}','+','.',',','>','<','\'','\"','?','\\','*','-','@','%','&','|','/',':','!','~','`','#','\n']
     for i in new_list:
         wholeString = wholeString.replace(i, ' ')
     new_wholeString = wholeString.split(' ')
