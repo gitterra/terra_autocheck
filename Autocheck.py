@@ -13,7 +13,7 @@ def autorization(self):
  
 def StartHomework(self):
     global user
-    if user.HW_ID in [1738]:
+    if user.HW_ID in [1738, 1461, 1465, 1469, 1523, 1527, 1531, 1535, 1539, 1543, 1547, 1551, 1555, 1559, 1563, 1567, 1625]:    
         Ultra_Light.Start(user)
     elif user.HW_ID == 1739:
         baseblock.lessonone.light.Start(user)
