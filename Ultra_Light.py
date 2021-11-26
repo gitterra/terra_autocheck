@@ -125,9 +125,17 @@ def show_question(self):
     button_check.layout.display = 'block' # Отображение кнопки «Проверить»
     button_check.on_click(check_homework) # Добавление обработчика для кнопки
     
+def set_hw(self):
+	global user
+	user.HW_ID = HOMEWORK_ID[lessonsList.value]	
+	
 # Функция запуска тестирования
-def Start(user_):
+def Start(user_):	
     global user
+    print('Выберите занятие для загрузки вопросов')
+    display.display(lessonsList)
+    display.display(button_start)
     user = user_
-    show_question(None)
+    lessonsList.observe(set_hw)
+    button_start.on_click(show_question)
     
