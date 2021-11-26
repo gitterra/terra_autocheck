@@ -3,7 +3,7 @@ import ipywidgets as widgets
 SERVER = 'https://aiu-check-homework.herokuapp.com/'
 PAGE_CHECK = 'app_check/api-v0/check'          # Страница проверки ответов пользователя
 PAGE_QUESTION = 'app_check/api-v0/questions'   # Страница получения вопросов
-PAGE_LOGIN = 'app_check/api-v0/autorization'   # Страница получения вопросов
+PAGE_LOGIN = 'app_check/api-v0/authorization'   # Страница получения вопросов
 
 # Тексты на кнопках
 BUTTONS_TEXT = ['Проверить',
