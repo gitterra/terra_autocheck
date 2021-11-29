@@ -7,16 +7,13 @@ from ... import utils
 Здесь Ваши функции автопроверки
 
 '''
+
 def test():
-  global x_data
+  import keras
   from tensorflow.keras.utils import get_file   # инструмент для скачивания и распаковки
   import types, glob, shutil, psutil, gc, os        # работа с путями и проверка соответствия типов
-  from sklearn.metrics import accuracy_score    # замер точности
   from PIL import Image
   import numpy as np
-  if psutil.virtual_memory()[2] > 85:
-    del x_data
-    print('Переменная x_data была удалена для освобождения ОЗУ, если проверка не пройдет, Вам придется снова запустить ячейку с созданием массива данных для обучения.')
   gc.collect()
   get_file('bus_test.zip', origin = 'https://drive.google.com/uc?id=1x121oZ9ZYRekXe2ub8HMgTN4oo7r0Qpk', extract=True, cache_dir='.', cache_subdir='.')
   os.remove('bus_test.zip')                     # сразу удаляем тестовый датасет, чтоб не было доступа у студента
@@ -30,27 +27,30 @@ def test():
       class_files = os.listdir(class_path)      # Получение списка имен файлов с изображениями текущего класса
       data_files += [f'{class_path}/{file_name}' for file_name in class_files]
       data_labels += [class_label] * len(class_files)
-  IMG_HEIGHT = 243
-  IMG_WIDTH = 162
-  data_images = []
-  for file_name in data_files:
-      img = Image.open(file_name).resize((IMG_WIDTH, IMG_HEIGHT))
+  accuracy_list = []
+  img_shape = 0                                 # Объявляем img_shape, чтобы была в globals
+  for k, v in globals().items():
+    if type(v) == np.ndarray and v.shape[-1] == 3: # Ищем датасет, чтобы взять входную размерность
+      img_shape = v.shape[-3:-1]
+
+  for k, v in user.content.items():             # пробуем перебрать все переменные в поисках рабочих моделей и тестируем их, если их было несколько. Если лучшая модель даст удовл, то тест пройден
+    if not (type(v) == keras.engine.sequential.Sequential or type(v) == keras.engine.functional.Functional) :  # ищем только среди интересующих нас объектов.
+      continue
+    testmodel = user.content[k]
+
+    data_images = []
+    for file_name in data_files:
+      img = Image.open(file_name).resize((img_shape[1],img_shape[0]))
       img_np = np.array(img)                    # Перевод в numpy-массив
       data_images.append(img_np)                # Добавление изображения в виде numpy-массива к общему списку
-  x_test = np.array(data_images)/255.           # Перевод общего списка изображений в numpy-массив
-  y_test = np.array(data_labels)                # Перевод общего списка меток класса в numpy-массив
-  shutil.rmtree('/content/bus_test')            # сразу удаляем тестовый датасет, чтоб не было доступа у студента
-  del data_images
-  accuracy_list = []
+    x_test = np.array(data_images)/255.           # Перевод общего списка изображений в numpy-массив
+    y_test = np.array(data_labels)                # Перевод общего списка меток класса в numpy-массив
+    del data_images
 
-  for g in user.content:                           # пробуем перебрать все переменные в поисках рабочих моделей и тестируем их, если их было несколько. Если лучшая модель даст удовл, то тест пройден
-    if not str(user.content[g]).startswith('<keras.engine.sequential.Sequential object'):  # ищем только среди интересующих нас объектов.
-      continue
-    testmodel = user.content[g]
-    eval = testmodel.predict(x_test, verbose=0)
-    eval = np.squeeze(eval).round().astype(int)
-    accuracy = accuracy_score(eval, y_test)
+    accuracy = testmodel.evaluate(x_test, y_test)[1]
     accuracy_list.append(accuracy)
+  del x_test, y_test
+  shutil.rmtree('/content/bus_test')            # сразу удаляем тестовый датасет, чтоб не было доступа у студента
   gc.collect()
   if accuracy_list:
     if max(accuracy_list) >= 0.93:
@@ -62,6 +62,7 @@ def test():
   else:
     print('Моделей класса Sequential не обнаружено')
     return False
+
 
 #
 # ОБЯЗАТЕЛЬНЫЙ БЛОК
