@@ -150,7 +150,7 @@ def test_unit_3(cellin, cellout, matches_in='', matches_out='', pred_test='', lo
       mean_acc = sum(list_val_acc)/len(list_val_acc) # среднее заначение точностей
       if v_acc > 0.85 and v_acc > mean_acc: # проверяем на достижение необходимой точности на последних эпохах и рост точности
         count_v_acc = count_v_acc + 1
-    print('count_v_acc', count_v_acc)
+    # print('count_v_acc', count_v_acc)
     if count_v_acc > 3:
       test_flags__[3] = 1
       test_results__[2] = f'3/На последних {min(10,len(list_val_acc))} эпохах достигнута необходимая точность на проверочной выборке'
