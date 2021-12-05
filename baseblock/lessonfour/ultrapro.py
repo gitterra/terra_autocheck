@@ -134,7 +134,8 @@ def test_unit_2v2(cellin, cellout, matches_in='', matches_out='', pred_test='', 
 def test_unit_3(cellin, cellout, matches_in='', matches_out='', pred_test='', logs=1):
   # print('ok3', 'in', matches_in, 'out', matches_out, pred_test)
   
-  if (test_flags__[1] or test_flags__[2]) and matches_in=='.fit':  # проверяем, если пройдена проверка в тестах 2v1 или 2v2
+  # print('(test_flags__[1] or test_flags__[2]) and matches_in==".fit" =', test_flags__, matches_in, (test_flags__[1] or test_flags__[2]) and matches_in=='.fit')
+  if (test_flags__[1] or test_flags__[2]) and matches_in[0]=='.fit':  # проверяем, если пройдена проверка в тестах 2v1 или 2v2
 
     list_val_acc = [] # список точностей на проверочной выборке по каждой эпохе
     for acc, val_acc in matches_out: # Пример: ('accuracy: 0.8446', 'val_accuracy: 0.8442')'
@@ -149,15 +150,17 @@ def test_unit_3(cellin, cellout, matches_in='', matches_out='', pred_test='', lo
       mean_acc = sum(list_val_acc)/len(list_val_acc) # среднее заначение точностей
       if v_acc > 0.85 and v_acc > mean_acc: # проверяем на достижение необходимой точности на последних эпохах и рост точности
         count_v_acc = count_v_acc + 1
+    print('count_v_acc', count_v_acc)
     if count_v_acc > 3:
       test_flags__[3] = 1
-      test_results__[2] = f'3/На последних эпохах достигнута необходимая точность на проверочной выборке'
+      test_results__[2] = f'3/На последних {min(10,len(list_val_acc))} эпохах достигнута необходимая точность на проверочной выборке'
     else:
-      test_results__[2] = f'3/Для данного задания достигнутой точности на последних эпохах не достаточно. \nПопробуйте изменить модель или дообучить на большем количестве эпох.'
+      test_results__[2] = f'3/Для данного задания достигнутой точности и роста точности на последних {min(10,len(list_val_acc))} эпохах не достаточно. \nПопробуйте изменить модель или дообучить на большем количестве эпох.'
   else:
     print('Модель не обучалась')
   # print(f'Лучшая точность на {list_val_acc.index(max(list_val_acc))+1} эпохе - {round(max(list_val_acc)*100, 2)}%')
 
+  
 # <hide>
 # глобальная функция тестирования
 def test(logs=0):
