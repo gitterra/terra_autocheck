@@ -7,7 +7,6 @@ from ... import utils
 ############################
 from google.colab import _message
 
-
 class NotebookCheck():
   def __init__(self, debug=0, ncell=0):
     self.checkLayers = {'Conv2D': 2, 'Dense': 1, 'MaxPooling2D': 1, 'BatchNormalization': 1, 'Dropout': 1}
@@ -53,16 +52,13 @@ class NotebookCheck():
     return self.cells
 
   def check(self):
-    CRED = '\x1b[1;31m'
-    CEND = '\x1b[0m'
-
     answer = 0
     loadMnist = self.getLoadBase()
     if loadMnist['load mnist'] == 1:
       print('База рукописных цыфр загружена')
       answer += 1
     else:
-      print(CRED + 'Не найдена загрузка базы рукописных цыфр' + CEND)
+      self.cPrint('Не найдена загрузка базы рукописных цыфр', 'red')
 
     if len(loadMnist['reshape']) == 2:
       print('Преобразование размерности набора данных для подачи в нейросеть выполнено.')
@@ -71,7 +67,7 @@ class NotebookCheck():
       print('Преобразование размерности набора данных для подачи в нейросеть выполнено только для набора',
             loadMnist['reshape'][0])
     else:
-      print(CRED + 'Преобразование размерности набора данных для подачи в нейросеть не выполнено' + CEND)
+      self.cPrint('Преобразование размерности набора данных для подачи в нейросеть не выполнено', 'red')
 
     if len(loadMnist['to_categorical']) == 2:
       print('Преобразование выборки с ответами в OHE выполнено.')
@@ -79,7 +75,7 @@ class NotebookCheck():
     elif len(loadMnist['to_categorical']) == 1:
       print('Преобразование выборки с ответами в OHE выполнено только для набора', loadMnist['reshape'][0])
     else:
-      print(CRED + 'Преобразование выборки с ответами в OHE не выполнено' + CEND)
+      self.cPrint('Преобразование выборки с ответами в OHE не выполнено', 'red')
 
     if len(loadMnist['norm']) == 2:
       print('Нормирование данных выполнено.')
@@ -87,7 +83,7 @@ class NotebookCheck():
     elif len(loadMnist['norm']) == 1:
       print('Нормирование данных выполнено только для набора', loadMnist['reshape'][0])
     else:
-      print(CRED + 'Нормирование данных не выполнено' + CEND)
+      cPprint('Нормирование данных не выполнено')
 
     dictModels = self.getModelLayers()
 
@@ -95,7 +91,7 @@ class NotebookCheck():
       print('Найдено обученных можелей:', len(dictModels))
       answer += 1
     else:
-      print(CRED + 'Не найдено ни одной обученной модели.' + CEND)
+      self.cPrint('Не найдено ни одной обученной модели.', 'red')
     for key in dictModels:
       print(dictModels[key]['model name'], ':')
       for keyL in self.checkLayers:
@@ -103,17 +99,18 @@ class NotebookCheck():
           print('Количество слоев {} удовлетворяет условию'.format(keyL))
           answer += 1
         else:
-          print(CRED + 'Количество слоев {} не удовлетворяет условию' + CEND.format(keyL))
+          self.cPrint('Количество слоев {} не удовлетворяет условию'.format(keyL), 'red')
 
       for keyP in self.chekParams:
+
         if keyP in dictModels[key]['params'].keys():
           if dictModels[key]['params'][keyP] == self.chekParams[keyP]:
             print('Значение {} удовлетворяет условию'.format(keyP))
             answer += 1
           else:
-            print(CRED + 'Значение {} не удовлетворяет условию' + CEND.format(keyP), )
+            self.cPrint('Значение {} не удовлетворяет условию'.format(keyP), 'red')
         else:
-          print(CRED + 'Параметр {} не найден' + CEND.format(keyP))
+          cPrint('Параметр {} не найден'.format(keyP), 'red')
 
       pl = self.getPlot(dictModels[key]['history'])
       if pl['show'] == 1:
@@ -121,18 +118,18 @@ class NotebookCheck():
           print('График доли верных ответов на обучающей выборке найден')
           answer += 1
         else:
-          print(CRED + 'График доли верных ответов на обучающей выборке не найден' + CEND)
+          self.cPrint('График доли верных ответов на обучающей выборке не найден', 'red')
 
         if pl['val_accuracy'] == 1:
           print('График доли верных ответов на проверочной выборке найден')
           answer += 1
         else:
-          print(CRED + 'График доли верных ответов на проверочной выборке не найден' + CEND)
+          self.cPrint('График доли верных ответов на проверочной выборке не найден', 'red')
 
-        print('Грфик нарисован')
+        print('Гарфик нарисован')
         answer += 1
       else:
-        print(CRED + 'График не найден. Выедите график доли верных ответов на обучающей и проверочной выборке' + CEND)
+        self.cPrint('График не найден. Выедите график доли верных ответов на обучающей и проверочной выборке', 'red')
 
     if answer == 19:
       print('\n\nПоздравляем! Все условия выполненны. Задание принято.')
@@ -140,6 +137,15 @@ class NotebookCheck():
       print('\n\nВыполнены не все условия. Задание не принято. Исправьте ошибки и запустите проверку повторно.')
     else:
       print('Задание не выполненно. Проверки не пройдены. Попробуйте еще раз.')
+
+  def cPrint(self, text='', colorPrint='black'):
+    colorMap = {'red': '\x1b[1;31m', 'black': '\x1b[0m'}
+    clr = colorPrint
+    if colorPrint not in colorMap.keys():
+      printStr = colorMap['red'] + f'Цвет {clr} не определен для вывода print' + colorMap['black']
+      clr = 'black'
+      print(printStr)
+    print(colorMap[clr] + text + colorMap['black'])
 
   def NoteCodeToText(self):
     open_key = 0
